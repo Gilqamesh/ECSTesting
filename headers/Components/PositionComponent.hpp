@@ -5,9 +5,9 @@
 
 struct PositionComponent
 {
-    int x;
-    int y;
-    int z;
+    float x;
+    float y;
+    float z;
 };
 
 std::ostream &operator<<(std::ostream &os, const PositionComponent &a);

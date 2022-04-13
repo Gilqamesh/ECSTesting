@@ -2,48 +2,41 @@
 #include <cassert>
 
 EntityManager::EntityManager()
-    : numberOfEntities(0)
+    : availableEntitiesQueueIndex(0)
 {
-
+    for (unsigned int i = 0; i < availableEntitiesQueue.size(); ++i)
+        availableEntitiesQueue[i] = Entity(i);
 }
 
 Entity EntityManager::createEntity(void)
 {
     // Entities have reached the max allowed number MAX_ENTITIES
-    assert(numberOfEntities < MAX_ENTITIES);
+    assert(availableEntitiesQueueIndex < MAX_ENTITIES);
 
-    entitySignatures[numberOfEntities] = Signature();
-    return (Entity(numberOfEntities++));
+    return (availableEntitiesQueue[availableEntitiesQueueIndex++]);
 }
 
 void EntityManager::destroyEntity(Entity entity)
 {
-    // Entity does not exist in the EntityManager
-    assert(entity._id < numberOfEntities);
+    // there are no entities in the entity manager to destroy
+    assert(availableEntitiesQueueIndex > 0);
 
-    entitySignatures[entity._id] = entitySignatures[--numberOfEntities];
+    entityComponentSignature[entity._id].reset();
+    availableEntitiesQueue[--availableEntitiesQueueIndex] = entity;
 }
 
-void EntityManager::setSignature(Entity entity, Signature signature)
+void EntityManager::setComponentSignature(Entity entity, ComponentSignature componentSignature)
 {
-    // Entity does not exist in the EntityManager
-    assert(entity._id < numberOfEntities);
+    // entity id is out of range 
+    assert(entity._id < MAX_ENTITIES);
 
-    entitySignatures[entity._id] = signature;
+    entityComponentSignature[entity._id] = componentSignature;
 }
 
-Signature EntityManager::getSignature(Entity entity) const
+ComponentSignature EntityManager::getComponentSignature(Entity entity) const
 {
     // Entity does not exist in the EntityManager
-    assert(entity._id < numberOfEntities);
+    assert(entity._id < MAX_ENTITIES);
 
-    return (entitySignatures[entity._id]);
-}
-
-Entity EntityManager::getEntity(EntityId id) const
-{
-    // entityid does not exist in the EntityManager
-    assert(id < numberOfEntities);
-
-    return ();
+    return (entityComponentSignature[entity._id]);
 }

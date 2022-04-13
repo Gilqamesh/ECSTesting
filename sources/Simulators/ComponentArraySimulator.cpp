@@ -3,6 +3,7 @@
 #include "Managers/EntityManager.hpp"
 #include <iostream>
 #include <ctime>
+#include <vector>
 
 void ComponentArraySimulator::main()
 {

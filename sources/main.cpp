@@ -1,5 +1,7 @@
 #include "Simulators/ComponentArraySimulator.hpp"
 #include "Simulators/ComponentManagerSimulator.hpp"
+#include "Simulators/SystemManagerSimulator.hpp"
+#include "Simulators/CoordinatorSimulator.hpp"
 #include <exception>
 #include <iostream>
 
@@ -18,11 +20,35 @@ int main()
     // }
 
     // ComponentManager Simulation
+    // try
+    // {
+    //     ComponentManagerSimulator *componentManagerSimulator = new ComponentManagerSimulator();
+    //     componentManagerSimulator->main();
+    //     delete componentManagerSimulator;
+    // }
+    // catch (std::exception &e)
+    // {
+    //     std::cerr << e.what() << std::endl;
+    // }
+
+    // SystemManager Simulation
+    // try
+    // {
+    //     SystemManagerSimulator *systemManagerSimulator = new SystemManagerSimulator();
+    //     systemManagerSimulator->main();
+    //     delete systemManagerSimulator;
+    // }
+    // catch (std::exception &e)
+    // {
+    //     std::cerr << e.what() << std::endl;
+    // }
+
+    // Coordinator Simulation
     try
     {
-        ComponentManagerSimulator *componentManagerSimulator = new ComponentManagerSimulator();
-        componentManagerSimulator->main();
-        delete componentManagerSimulator;
+        CoordinatorSimulator *coordinatorSimulator = new CoordinatorSimulator();
+        coordinatorSimulator->main();
+        delete coordinatorSimulator;
     }
     catch (std::exception &e)
     {

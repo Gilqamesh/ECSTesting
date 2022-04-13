@@ -9,7 +9,7 @@
 void ComponentManagerSimulator::main()
 {
     std::srand(42);
-    ComponentManager *componentManager = new ComponentManager;
+    ComponentManager *componentManager = new ComponentManager();
     componentManager->registerComponent<PositionComponent>();
     componentManager->registerComponent<VelocityComponent>();
     componentManager->print();
@@ -25,19 +25,17 @@ void ComponentManagerSimulator::main()
         if (std::rand() % 2)
         {
             componentManager->addComponent<PositionComponent>(entities[i],
-                {std::rand() % 100 - 50, std::rand() % 100 - 50, std::rand() % 100 - 50});
+                {(float)(std::rand() % 100 - 50), (float)(std::rand() % 100 - 50), (float)(std::rand() % 100 - 50)});
         }
         else
         {
             componentManager->addComponent<VelocityComponent>(entities[i],
-                {std::rand() % 100 - 50, std::rand() % 100 - 50, std::rand() % 100 - 50});
+                {(float)(std::rand() % 100 - 50), (float)(std::rand() % 100 - 50), (float)(std::rand() % 100 - 50)});
         }
     }
-    int r = std::rand() % 100;
-    std::cout << "componentManager->getComponent<VelocityComponent>(r): "
-        << componentManager->getComponent<VelocityComponent>(entityManager->) << std::endl;
-    r = std::rand() % 100;
-    std::cout << "componentManager->getComponent<VelocityComponent>(r): "
-        << componentManager->getComponent<PositionComponent>(r) << std::endl;
+    std::cout << "componentManager->getComponent<VelocityComponent>(1): "
+        << componentManager->getComponent<VelocityComponent>(entities[1]) << std::endl;
+    std::cout << "componentManager->getComponent<PositionComponent>(5): "
+        << componentManager->getComponent<PositionComponent>(entities[5]) << std::endl;
     componentManager->print();
 }

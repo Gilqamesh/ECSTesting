@@ -4,6 +4,7 @@
 # include <cstdint>
 
 typedef uint16_t EntityId;
+# define MAX_ENTITIES UINT16_MAX
 
 class EntityManager;
 

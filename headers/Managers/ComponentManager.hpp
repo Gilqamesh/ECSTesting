@@ -2,17 +2,13 @@
 # define COMPONENTMANAGER_HPP
 
 # include <unordered_map>
-# include <cstdint>
 # include "ComponentArray.hpp"
-
-# define MAX_COMPONENTS UINT8_MAX
-typedef uint8_t ComponentId;
-typedef std::bitset<MAX_COMPONENTS> Signature;
+# include "Types.hpp"
 
 /*
  * Bookkeeps component arrays
  * Provides an api to manage entity component relationship
- * Distributes unique IDs for each component (the bit in the bitset for a Signature)
+ * Distributes unique IDs for each component (the bit in the bitset for a ComponentSignature)
  */
 class ComponentManager
 {
@@ -30,7 +26,7 @@ public:
     }
 
     /*
-     * Register component of type T from the manager
+     * Register component of type T to the manager
      */
     template <typename T>
     void registerComponent()
@@ -111,7 +107,7 @@ public:
     {
         for (const auto &nameToIdPair : NameToId)
         {
-            std::cout << "Component " << nameToIdPair.first << std::string(", id: ") << (int)nameToIdPair.second << std::endl;
+            std::cout << "Component name: " << nameToIdPair.first << std::string(", component id: ") << (int)nameToIdPair.second << std::endl;
             NameToArr.at(nameToIdPair.first)->print();
         }
     }

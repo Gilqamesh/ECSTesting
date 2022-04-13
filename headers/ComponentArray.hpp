@@ -85,7 +85,7 @@ public:
     virtual void print() const override
     {
         for (size_t i = 0; i < currentSize; ++i)
-            std::cout << data.at(i) << " ";
+            std::cout << "[Entity id: " << dataToEntity.at(i) << ", data: " << data.at(i) << "], ";
         std::cout << std::endl;
     }
 };

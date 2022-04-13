@@ -2,30 +2,46 @@
 # define ENTITYMANAGER_HPP
 
 # include "Entity.hpp"
+# include <stack>
 # include <unordered_map>
 # include <array>
 # include <bitset>
 # include "Managers/ComponentManager.hpp"
 
-# define MAX_ENTITIES UINT16_MAX
-
+/*
+ * Distributes available entities
+ * Bookkeeps entities component signature
+ */
 class EntityManager
 {
-// shouldn't need this
-// std::unordered_map<EntityId, Signature> entityToSignature; /* entity id -> signature */
-std::array<Signature, MAX_ENTITIES> entitySignatures;
-EntityId numberOfEntities;
+std::array<ComponentSignature, MAX_ENTITIES> entityComponentSignature; /* the array is indexed by the entity id, each element holds the components of an entity */
+std::array<Entity, MAX_ENTITIES> availableEntitiesQueue; /* available entities to distribute held by the entity manager */
+EntityId availableEntitiesQueueIndex;
 public:
+    /*
+     * Initializes the available entities to distribute later
+     */
     EntityManager();
-    Entity createEntity(void);
-    void destroyEntity(Entity entity);
-    void setSignature(Entity entity, Signature signature);
-    Signature getSignature(Entity entity) const;
 
     /*
-     * Get entity based on id
+     * Returns an available entity
      */
-    Entity getEntity(EntityId id) const;
+    Entity createEntity(void);
+
+    /*
+     * Destroys entity and adds it back to the entity manager as an available entity
+     */
+    void destroyEntity(Entity entity);
+
+    /*
+     * Sets the component signature for the entity
+     */
+    void setComponentSignature(Entity entity, ComponentSignature ComponentSignature);
+
+    /*
+     * Gets the component signature for the entit
+     */
+    ComponentSignature getComponentSignature(Entity entity) const;
 };
 
 #endif
